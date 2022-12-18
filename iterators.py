@@ -66,11 +66,11 @@ class PreorderIterator:
 
         right_child_index = right_child(idx)
         if right_child_index < len(self._sequence):
-            self._sequence.append(right_child_index)
+            self._stack.append(right_child_index)
 
         left_child_index = left_child(idx)
         if left_child_index < len(self._sequence):
-            self._sequence.append(left_child_index)
+            self._stack.append(left_child_index)
 
         return result
 
@@ -104,6 +104,33 @@ class InOrderIterator:
         index = self._stack.pop()
         result = self._sequence[index]
         self._idx = right_child(index)
+
+        return result
+
+
+class PostOrderIterator:
+
+    def __init__(self, sequence):
+        self._sequence = self._is_perfect_length(sequence)
+        self._idx = 0
+
+    @staticmethod
+    def _is_perfect_length(sequence):
+        if not is_perfect_length(sequence):
+            raise ValueError(f'Sequence of length {len(sequence)} does not represent a perfect binary '
+                             f'tree with length 2 ** n -1')
+
+        return sequence
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self._idx <= len(self._sequence):
+            raise StopIteration
+
+        result = self._sequence[self._idx]
+        self._idx -= 1
 
         return result
 
@@ -150,6 +177,6 @@ class TranslationIterator:
 # tree = ['*', '+', '-', 'a', 'b', 'c', 'd']
 # iterator = InOrderIterator(tree)
 # ' '.join(iterator)
-tree = ['-', '*', '/', 'p', 'q', 'r', '+', missing, missing, missing, missing, missing, missing, 's', 't']
-iterator = TranslationIterator(SkipMissingIterator(InOrderIterator(tree)), typesetting_table)
-print(' '.join(iterator))
+# tree = ['-', '*', '/', 'p', 'q', 'r', '+', missing, missing, missing, missing, missing, missing, 's', 't']
+# iterator = TranslationIterator(SkipMissingIterator(InOrderIterator(tree)), typesetting_table)
+# print(' '.join(iterator))
