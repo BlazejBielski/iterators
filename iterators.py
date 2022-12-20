@@ -113,6 +113,7 @@ class PostOrderIterator:
     def __init__(self, sequence):
         self._sequence = self._is_perfect_length(sequence)
         self._idx = 0
+        self._stack = [0]
 
     @staticmethod
     def _is_perfect_length(sequence):
@@ -126,11 +127,16 @@ class PostOrderIterator:
         return self
 
     def __next__(self):
-        if self._idx <= len(self._sequence):
+        if len(self._stack) == 0 and self._idx >= len(self._sequence):
             raise StopIteration
 
-        result = self._sequence[self._idx]
-        self._idx -= 1
+        while self._idx < len(self._sequence):
+            self._stack.append(self._idx)
+            self._idx = left_child(self._idx)
+
+        index = self._stack.pop()
+        result = self._sequence[index]
+        self._idx = right_child(index)
 
         return result
 
@@ -174,9 +180,9 @@ class TranslationIterator:
 
 # r + p * q
 
-# tree = ['*', '+', '-', 'a', 'b', 'c', 'd']
-# iterator = InOrderIterator(tree)
-# ' '.join(iterator)
+tree = ['*', '+', '-', 'a', 'b', 'c', 'd']
+iterator = PostOrderIterator(tree)
+print(' '.join(iterator))
 # tree = ['-', '*', '/', 'p', 'q', 'r', '+', missing, missing, missing, missing, missing, missing, 's', 't']
 # iterator = TranslationIterator(SkipMissingIterator(InOrderIterator(tree)), typesetting_table)
 # print(' '.join(iterator))
