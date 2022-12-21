@@ -180,9 +180,9 @@ class TranslationIterator:
 
 # r + p * q
 
-tree = ['*', '+', '-', 'a', 'b', 'c', 'd']
-iterator = PostOrderIterator(tree)
-print(' '.join(iterator))
+# tree = ['*', '+', '-', 'a', 'b', 'c', 'd']
+# iterator = PostOrderIterator(tree)
+# print(' '.join(iterator))
 # tree = ['-', '*', '/', 'p', 'q', 'r', '+', missing, missing, missing, missing, missing, missing, 's', 't']
 # iterator = TranslationIterator(SkipMissingIterator(InOrderIterator(tree)), typesetting_table)
 # print(' '.join(iterator))
