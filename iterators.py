@@ -112,8 +112,8 @@ class PostOrderIterator:
 
     def __init__(self, sequence):
         self._sequence = self._is_perfect_length(sequence)
-        self._idx = 0
         self._stack = [0]
+        self._idx = 0
 
     @staticmethod
     def _is_perfect_length(sequence):
