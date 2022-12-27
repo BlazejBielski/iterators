@@ -13,18 +13,39 @@ class Count:
         yield result
 
 
+# not completed yet
 class Chain:
-    def __init__(self, *iterable):
-        self._iterable = iterable
+    def __init__(self, *iterables):
+        self._iterables = iterables
         self._idx = 0
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        if self._idx >= len(self._iterable):
+        length = len(self._iterables)
+        if self._idx >= length:
             raise StopIteration
 
-        result = list(self._iterable)[0][self._idx]
-        self._idx += 1
-        yield result
+        else:
+            for idx in range(length):
+                idx += 1
+                if length > idx:
+                    return self._iterables
+
+
+class Repeat:
+    def __init__(self, element, times=None):
+        self._times = times
+        self._element = element
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self._times is None:
+            yield self._element
+        else:
+            yield [self._element for x in range(self._times)]
+
+
