@@ -47,3 +47,14 @@ class Repeat:
 
             else:
                 raise StopIteration
+
+
+class Cycle:
+    def __init__(self, iterable):
+        self._iterable = iterable
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        yield [element for element in self._iterable]
