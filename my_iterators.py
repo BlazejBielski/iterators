@@ -38,6 +38,7 @@ class Repeat:
     def __init__(self, element, times=None):
         self._times = times
         self._element = element
+        self._idx = 0
 
     def __iter__(self):
         return self
@@ -45,7 +46,12 @@ class Repeat:
     def __next__(self):
         if self._times is None:
             yield self._element
+
         else:
-            yield [self._element for x in range(self._times)]
 
+            if self._idx < self._times:
+                self._idx += 1
+                yield self._element
 
+            else:
+                raise StopIteration
