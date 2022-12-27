@@ -1,3 +1,6 @@
+import operator
+
+
 class Count:
     # count(20) --> 20, 21, 22, 23 ...
     def __init__(self, start=0, step=1):
@@ -58,3 +61,20 @@ class Cycle:
 
     def __next__(self):
         yield [element for element in self._iterable]
+
+
+class Accumulate:
+    def __init__(self, iterable, func=operator.add, *, initial=None):
+        self._iterable = iterable
+        self._func = func
+        self._initial = initial
+        self._idx = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        result = self._iterable[self._idx] + self._iterable[self._idx + 1]
+        yield result + self._iterable[self._idx]
+        self._idx += 1
+        # yield result + self._iterable[self._idx]
