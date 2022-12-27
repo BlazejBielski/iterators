@@ -75,6 +75,7 @@ class Accumulate:
 
     def __next__(self):
         result = self._iterable[self._idx] + self._iterable[self._idx + 1]
-        yield result + self._iterable[self._idx]
+        yield result
         self._idx += 1
-        # yield result + self._iterable[self._idx]
+
+
