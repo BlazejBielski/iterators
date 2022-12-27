@@ -23,15 +23,7 @@ class Chain:
         return self
 
     def __next__(self):
-        length = len(self._iterables)
-        if self._idx >= length:
-            raise StopIteration
-
-        else:
-            for idx in range(length):
-                idx += 1
-                if length > idx:
-                    return self._iterables
+        yield [element for sublist in self._iterables for element in sublist]
 
 
 class Repeat:
