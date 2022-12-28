@@ -63,6 +63,7 @@ class Cycle:
         yield [element for element in self._iterable]
 
 
+# not work yet
 class Accumulate:
     def __init__(self, iterable, func=operator.add, *, initial=None):
         self._iterable = iterable
@@ -77,5 +78,4 @@ class Accumulate:
         result = self._iterable[self._idx] + self._iterable[self._idx + 1]
         yield result
         self._idx += 1
-
 
